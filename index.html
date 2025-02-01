@@ -3,90 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Maccheroni</title>
+    <title>L'Arte dei Maccheroni | Traditional Italian Pasta</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #DEB887;
+            --accent-color: #D2691E;
+            --text-color: #2C1810;
+            --light-bg: #FDF5E6;
+            --white: #FFFFFF;
         }
-        h1, h2 {
-            color: #d35400;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/1080') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--accent-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title .subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        .pasta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pasta-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .pasta-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pasta-image {
+            height: 200px;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pasta-content {
+            padding: 2rem;
+        }
+
+        .pasta-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .pasta-specs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .pasta-spec {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .history-section {
+            background-color: var(--white);
+        }
+
+        .history-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .history-text {
+            padding: 2rem;
+        }
+
+        .history-image {
+            height: 400px;
+            background: var(--secondary-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .technique-section {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .technique-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .technique-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .technique-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            padding: 4rem 2rem;
             text-align: center;
         }
-        .content-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+
+        .social-links {
+            margin-top: 2rem;
         }
-        h2 {
-            color: #e67e22;
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+
+        .social-links a:hover {
+            color: var(--secondary-color);
         }
-        li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-        li:last-child {
-            border-bottom: none;
-        }
-        .pasta-description {
-            color: #666;
-            margin-left: 20px;
-            font-style: italic;
-        }
-        .history {
-            font-size: 0.95em;
-            line-height: 1.6;
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .history-content {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 4rem 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Maccheroni</h1>
-    <p>Discover the wonderful world of Italian pasta!</p>
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1>L'Arte dei Maccheroni</h1>
+            <p>Discovering the artistry and tradition of authentic Italian pasta making</p>
+            <a href="#varieties" class="btn">Explore Our Varieties</a>
+        </div>
+    </section>
 
-    <div class="content-section pasta-types">
-        <h2>Popular Types of Maccheroni</h2>
-        <ul>
-            <li>
-                <strong>Elbow Macaroni</strong>
-                <p class="pasta-description">Short, curved tubes perfect for mac and cheese. Cooking time: 7-10 minutes<br>
-                Best with: Cheese sauce, cream-based sauces, or in pasta salads</p>
-            </li>
-            <li>
-                <strong>Ziti</strong>
-                <p class="pasta-description">Long, smooth tubes ideal for baked dishes. Cooking time: 10-12 minutes<br>
-                Best with: Meat sauces, tomato-based sauces, or in casseroles</p>
-            </li>
-            <li>
-                <strong>Penne</strong>
-                <p class="pasta-description">Cylinder-shaped with angled ends. Cooking time: 11-13 minutes<br>
-                Best with: Chunky vegetable sauces, arrabiata, or vodka sauce</p>
-            </li>
-        </ul>
-    </div>
+    <section id="varieties" class="section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Pasta Varieties</h2>
+                <p class="subtitle">Each shape tells a unique story</p>
+            </div>
+            <div class="pasta-grid">
+                <div class="pasta-card" data-aos="fade-up">
+                    <div class="pasta-image">
+                        <img src="/api/placeholder/300/200" alt="Elbow Macaroni">
+                    </div>
+                    <div class="pasta-content">
+                        <h3>Elbow Macaroni</h3>
+                        <div class="pasta-specs">
+                            <span class="pasta-spec">
+                                <i class="fas fa-clock"></i>
+                                7-10 mins
+                            </span>
+                            <span class="pasta-spec">
+                                <i class="fas fa-temperature-high"></i>
+                                Al Dente
+                            </span>
+                        </div>
+                        <p>Short, curved tubes that perfectly capture creamy sauces. Originally created in northern Italy, this versatile pasta has become a global comfort food staple.</p>
+                    </div>
+                </div>
 
-    <div class="content-section history">
-        <h2>History of Maccheroni</h2>
-        <p>Maccheroni has a rich history dating back to ancient times. While pasta is often associated with Italy, the origin of maccheroni-style pasta can be traced to multiple cultures. The word "maccheroni" comes from the ancient Greek "makaria," meaning "food made from barley."</p>
-        <p>In medieval Italy, pasta-making became an art form, with different regions developing their own unique shapes and styles. By the 18th century, maccheroni had become a staple food in Italy, particularly in Naples, where street vendors known as "maccheronari" would sell ready-to-eat pasta to workers.</p>
-    </div>
+                <div class="pasta-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pasta-image">
+                        <img src="/api/placeholder/300/200" alt="Ziti">
+                    </div>
+                    <div class="pasta-content">
+                        <h3>Ziti</h3>
+                        <div class="pasta-specs">
+                            <span class="pasta-spec">
+                                <i class="fas fa-clock"></i>
+                                10-12 mins
+                            </span>
+                            <span class="pasta-spec">
+                                <i class="fas fa-temperature-high"></i>
+                                Firm
+                            </span>
+                        </div>
+                        <p>Long, smooth tubes with clean-cut ends. Traditional to Campania, these elegant pipes are perfect for baked dishes and hearty meat sauces.</p>
+                    </div>
+                </div>
 
-    <div class="content-section">
-        <h2>Cooking Tips</h2>
-        <ul>
-            <li>Always use plenty of salted water</li>
-            <li>Cook until "al dente" - firm to the bite</li>
-            <li>Reserve some pasta water for sauce</li>
-            <li>Don't rinse after cooking (unless making pasta salad)</li>
-        </ul>
-    </div>
+                <div class="pasta-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pasta-image">
+                        <img src="/api/placeholder/300/200" alt="Penne">
+                    </div>
+                    <div class="pasta-content">
+                        <h3>Penne</h3>
+                        <div class="pasta-specs">
+                            <span class="pasta-spec">
+                                <i class="fas fa-clock"></i>
+                                11-13 mins
+                            </span>
+                            <span class="pasta-spec">
+                                <i class="fas fa-temperature-high"></i>
+                                Al Dente
+                            </span>
+                        </div>
+                        <p>Cylinder-shaped with angled ends, named for their quill-like appearance. The ridged surface and hollow center make it perfect for capturing both thick and light sauces.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section history-section">
+        <div class="container">
+            <div class="history-content">
+                <div class="history-text" data-aos="fade-right">
+                    <div class="section-title" style="text-align: left;">
+                        <h2>Our Heritage</h2>
+                        <p class="subtitle">A tradition passed through generations</p>
+                    </div>
+                    <p>The art of pasta making dates back to ancient civilizations, with the earliest known pasta being made by the Etruscans. By the 13th century, pasta had become a staple of Italian cuisine, with each region developing its unique shapes and preparations.</p>
+                    <p style="margin-top: 1rem;">In Naples, the craft of pasta making reached its zenith in the 18th century, where the legendary "maccheronari" would sell fresh pasta on the streets. This tradition of artisanal pasta making continues today, with each shape and texture designed to complement specific sauces and dishes.</p>
+                </div>
+                <div class="history-image" data-aos="fade-left">
+                    <img src="/api/placeholder/600/400" alt="Traditional Pasta Making">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section technique-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Techniques</h2>
+                <p class="subtitle">The secrets of perfect pasta</p>
+            </div>
+            <div class="technique-grid">
+                <div class="technique-card" data-aos="fade-up">
+                    <div class="technique-icon">
+                        <i class="fas fa-wheat-awn"></i>
+                    </div>
+                    <h3>Premium Ingredients</h3>
+                    <p>We use only the finest durum wheat semolina and pure spring water.</p>
+                </div>
+                <div class="technique-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="technique-icon">
+                        <i class="fas fa-temperature-low"></i>
+                    </div>
+                    <h3>Slow Drying</h3>
+                    <p>Each batch is dried slowly at low temperatures to preserve flavor and texture.</p>
+                </div>
+                <div class="technique-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="technique-icon">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <h3>Traditional Methods</h3>
+                    <p>Our pasta is crafted using time-honored techniques passed down through generations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h3>L'Arte dei Maccheroni</h3>
+            <p>Preserving the tradition of authentic Italian pasta making</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
 </body>
 </html>
