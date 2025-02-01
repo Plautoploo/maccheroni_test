@@ -12,15 +12,16 @@
             padding: 20px;
             background-color: #f5f5f5;
         }
-        h1 {
+        h1, h2 {
             color: #d35400;
             text-align: center;
         }
-        .pasta-types {
+        .content-section {
             background-color: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
         h2 {
             color: #e67e22;
@@ -36,17 +37,55 @@
         li:last-child {
             border-bottom: none;
         }
+        .pasta-description {
+            color: #666;
+            margin-left: 20px;
+            font-style: italic;
+        }
+        .history {
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to Maccheroni</h1>
-    <p>This is a simple page about pasta.</p>
-    <div class="pasta-types">
+    <p>Discover the wonderful world of Italian pasta!</p>
+
+    <div class="content-section pasta-types">
         <h2>Popular Types of Maccheroni</h2>
         <ul>
-            <li>Elbow Macaroni</li>
-            <li>Ziti</li>
-            <li>Penne</li>
+            <li>
+                <strong>Elbow Macaroni</strong>
+                <p class="pasta-description">Short, curved tubes perfect for mac and cheese. Cooking time: 7-10 minutes<br>
+                Best with: Cheese sauce, cream-based sauces, or in pasta salads</p>
+            </li>
+            <li>
+                <strong>Ziti</strong>
+                <p class="pasta-description">Long, smooth tubes ideal for baked dishes. Cooking time: 10-12 minutes<br>
+                Best with: Meat sauces, tomato-based sauces, or in casseroles</p>
+            </li>
+            <li>
+                <strong>Penne</strong>
+                <p class="pasta-description">Cylinder-shaped with angled ends. Cooking time: 11-13 minutes<br>
+                Best with: Chunky vegetable sauces, arrabiata, or vodka sauce</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content-section history">
+        <h2>History of Maccheroni</h2>
+        <p>Maccheroni has a rich history dating back to ancient times. While pasta is often associated with Italy, the origin of maccheroni-style pasta can be traced to multiple cultures. The word "maccheroni" comes from the ancient Greek "makaria," meaning "food made from barley."</p>
+        <p>In medieval Italy, pasta-making became an art form, with different regions developing their own unique shapes and styles. By the 18th century, maccheroni had become a staple food in Italy, particularly in Naples, where street vendors known as "maccheronari" would sell ready-to-eat pasta to workers.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Cooking Tips</h2>
+        <ul>
+            <li>Always use plenty of salted water</li>
+            <li>Cook until "al dente" - firm to the bite</li>
+            <li>Reserve some pasta water for sauce</li>
+            <li>Don't rinse after cooking (unless making pasta salad)</li>
         </ul>
     </div>
 </body>
