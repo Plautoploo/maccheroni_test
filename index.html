@@ -7,371 +7,365 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #8B4513;
-            --secondary-color: #DEB887;
-            --accent-color: #D2691E;
-            --text-color: #2C1810;
-            --light-bg: #FDF5E6;
-            --white: #FFFFFF;
+        /* Previous styles remain the same */
+        
+        /* Adding new styles */
+        .sticky-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(139, 69, 19, 0.95);
+            padding: 1rem;
+            z-index: 1000;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .sticky-nav.visible {
+            transform: translateY(0);
         }
 
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--light-bg);
-        }
-
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/1080') center/cover;
+        .nav-content {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
             color: var(--white);
         }
 
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: var(--accent-color);
+        .nav-links a {
             color: var(--white);
             text-decoration: none;
-            border-radius: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .recipe-section {
+            background-color: var(--white);
+        }
+
+        .recipe-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .recipe-tab {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            border-bottom: 2px solid transparent;
             transition: all 0.3s ease;
         }
 
-        .btn:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .section {
-            padding: 6rem 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
+        .recipe-tab.active {
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            border-bottom-color: var(--primary-color);
         }
 
-        .section-title .subtitle {
-            font-size: 1.2rem;
-            color: var(--accent-color);
-        }
-
-        .pasta-grid {
+        .recipe-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
-        .pasta-card {
-            background: var(--white);
+        .recipe-card {
+            background: var(--light-bg);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
-        .pasta-card:hover {
-            transform: translateY(-10px);
+        .recipe-card:hover {
+            transform: translateY(-5px);
         }
 
-        .pasta-image {
+        .recipe-image {
             height: 200px;
             background: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .pasta-content {
-            padding: 2rem;
+        .recipe-details {
+            padding: 1.5rem;
         }
 
-        .pasta-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .pasta-specs {
+        .recipe-meta {
             display: flex;
             gap: 1rem;
             margin-bottom: 1rem;
             font-size: 0.9rem;
+            color: var(--accent-color);
         }
 
-        .pasta-spec {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .history-section {
-            background-color: var(--white);
-        }
-
-        .history-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .history-text {
-            padding: 2rem;
-        }
-
-        .history-image {
-            height: 400px;
-            background: var(--secondary-color);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .technique-section {
-            background-color: var(--primary-color);
+        .cooking-tips {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080') center/cover;
             color: var(--white);
+            padding: 6rem 2rem;
         }
 
-        .technique-grid {
+        .tips-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
+            margin-top: 3rem;
         }
 
-        .technique-card {
+        .tip-card {
             text-align: center;
             padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
         }
 
-        .technique-icon {
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-icon {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
             color: var(--secondary-color);
+            margin-bottom: 1rem;
         }
 
-        footer {
-            background-color: var(--text-color);
+        .newsletter {
+            background-color: var(--primary-color);
             color: var(--white);
             padding: 4rem 2rem;
             text-align: center;
         }
 
-        .social-links {
-            margin-top: 2rem;
+        .newsletter-form {
+            max-width: 500px;
+            margin: 2rem auto 0;
+            display: flex;
+            gap: 1rem;
         }
 
-        .social-links a {
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            padding: 1rem 2rem;
+            background-color: var(--accent-color);
             color: var(--white);
-            font-size: 1.5rem;
-            margin: 0 1rem;
-            transition: color 0.3s ease;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .social-links a:hover {
-            color: var(--secondary-color);
+        .newsletter-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .nav-links {
+                display: none;
             }
-            .history-content {
-                grid-template-columns: 1fr;
+            
+            .newsletter-form {
+                flex-direction: column;
             }
-            .section {
-                padding: 4rem 1rem;
+            
+            .newsletter-btn {
+                width: 100%;
             }
+        }
+
+        /* Additional animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s ease forwards;
         }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <div class="hero-content" data-aos="fade-up">
-            <h1>L'Arte dei Maccheroni</h1>
-            <p>Discovering the artistry and tradition of authentic Italian pasta making</p>
-            <a href="#varieties" class="btn">Explore Our Varieties</a>
-        </div>
-    </section>
+    <!-- Previous content remains the same until footer -->
 
-    <section id="varieties" class="section">
+    <nav class="sticky-nav">
+        <div class="nav-content">
+            <div class="nav-logo">L'Arte dei Maccheroni</div>
+            <div class="nav-links">
+                <a href="#varieties">Varieties</a>
+                <a href="#heritage">Heritage</a>
+                <a href="#techniques">Techniques</a>
+                <a href="#recipes">Recipes</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Previous sections remain the same -->
+
+    <section id="recipes" class="section recipe-section">
         <div class="container">
             <div class="section-title" data-aos="fade-up">
-                <h2>Our Pasta Varieties</h2>
-                <p class="subtitle">Each shape tells a unique story</p>
+                <h2>Signature Recipes</h2>
+                <p class="subtitle">Traditional Italian classics</p>
             </div>
-            <div class="pasta-grid">
-                <div class="pasta-card" data-aos="fade-up">
-                    <div class="pasta-image">
-                        <img src="/api/placeholder/300/200" alt="Elbow Macaroni">
+            <div class="recipe-tabs" data-aos="fade-up">
+                <button class="recipe-tab active">Classic</button>
+                <button class="recipe-tab">Modern</button>
+                <button class="recipe-tab">Regional</button>
+            </div>
+            <div class="recipe-content" data-aos="fade-up">
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="/api/placeholder/300/200" alt="Classic Carbonara">
                     </div>
-                    <div class="pasta-content">
-                        <h3>Elbow Macaroni</h3>
-                        <div class="pasta-specs">
-                            <span class="pasta-spec">
-                                <i class="fas fa-clock"></i>
-                                7-10 mins
-                            </span>
-                            <span class="pasta-spec">
-                                <i class="fas fa-temperature-high"></i>
-                                Al Dente
-                            </span>
+                    <div class="recipe-details">
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-clock"></i> 30 mins</span>
+                            <span><i class="fas fa-user"></i> 4 servings</span>
                         </div>
-                        <p>Short, curved tubes that perfectly capture creamy sauces. Originally created in northern Italy, this versatile pasta has become a global comfort food staple.</p>
+                        <h3>Classic Carbonara</h3>
+                        <p>Traditional Roman recipe with eggs, pecorino cheese, guanciale, and black pepper.</p>
                     </div>
                 </div>
-
-                <div class="pasta-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="pasta-image">
-                        <img src="/api/placeholder/300/200" alt="Ziti">
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="/api/placeholder/300/200" alt="Amatriciana">
                     </div>
-                    <div class="pasta-content">
-                        <h3>Ziti</h3>
-                        <div class="pasta-specs">
-                            <span class="pasta-spec">
-                                <i class="fas fa-clock"></i>
-                                10-12 mins
-                            </span>
-                            <span class="pasta-spec">
-                                <i class="fas fa-temperature-high"></i>
-                                Firm
-                            </span>
+                    <div class="recipe-details">
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-clock"></i> 25 mins</span>
+                            <span><i class="fas fa-user"></i> 4 servings</span>
                         </div>
-                        <p>Long, smooth tubes with clean-cut ends. Traditional to Campania, these elegant pipes are perfect for baked dishes and hearty meat sauces.</p>
+                        <h3>Amatriciana</h3>
+                        <p>Rich tomato sauce with guanciale, pecorino romano, and a hint of chili.</p>
                     </div>
                 </div>
-
-                <div class="pasta-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="pasta-image">
-                        <img src="/api/placeholder/300/200" alt="Penne">
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="/api/placeholder/300/200" alt="Cacio e Pepe">
                     </div>
-                    <div class="pasta-content">
-                        <h3>Penne</h3>
-                        <div class="pasta-specs">
-                            <span class="pasta-spec">
-                                <i class="fas fa-clock"></i>
-                                11-13 mins
-                            </span>
-                            <span class="pasta-spec">
-                                <i class="fas fa-temperature-high"></i>
-                                Al Dente
-                            </span>
+                    <div class="recipe-details">
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-clock"></i> 20 mins</span>
+                            <span><i class="fas fa-user"></i> 2 servings</span>
                         </div>
-                        <p>Cylinder-shaped with angled ends, named for their quill-like appearance. The ridged surface and hollow center make it perfect for capturing both thick and light sauces.</p>
+                        <h3>Cacio e Pepe</h3>
+                        <p>The essence of Roman simplicity with pecorino romano and black pepper.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section history-section">
-        <div class="container">
-            <div class="history-content">
-                <div class="history-text" data-aos="fade-right">
-                    <div class="section-title" style="text-align: left;">
-                        <h2>Our Heritage</h2>
-                        <p class="subtitle">A tradition passed through generations</p>
-                    </div>
-                    <p>The art of pasta making dates back to ancient civilizations, with the earliest known pasta being made by the Etruscans. By the 13th century, pasta had become a staple of Italian cuisine, with each region developing its unique shapes and preparations.</p>
-                    <p style="margin-top: 1rem;">In Naples, the craft of pasta making reached its zenith in the 18th century, where the legendary "maccheronari" would sell fresh pasta on the streets. This tradition of artisanal pasta making continues today, with each shape and texture designed to complement specific sauces and dishes.</p>
-                </div>
-                <div class="history-image" data-aos="fade-left">
-                    <img src="/api/placeholder/600/400" alt="Traditional Pasta Making">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section technique-section">
+    <section class="cooking-tips">
         <div class="container">
             <div class="section-title" data-aos="fade-up">
-                <h2>Our Techniques</h2>
-                <p class="subtitle">The secrets of perfect pasta</p>
+                <h2>Master Chef Tips</h2>
+                <p class="subtitle">Secrets from our kitchen</p>
             </div>
-            <div class="technique-grid">
-                <div class="technique-card" data-aos="fade-up">
-                    <div class="technique-icon">
-                        <i class="fas fa-wheat-awn"></i>
+            <div class="tips-grid">
+                <div class="tip-card" data-aos="fade-up">
+                    <div class="tip-icon">
+                        <i class="fas fa-water"></i>
                     </div>
-                    <h3>Premium Ingredients</h3>
-                    <p>We use only the finest durum wheat semolina and pure spring water.</p>
+                    <h3>Water is Key</h3>
+                    <p>Use 1 liter of water per 100g of pasta. Salt the water only when it starts boiling.</p>
                 </div>
-                <div class="technique-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="technique-icon">
-                        <i class="fas fa-temperature-low"></i>
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tip-icon">
+                        <i class="fas fa-clock"></i>
                     </div>
-                    <h3>Slow Drying</h3>
-                    <p>Each batch is dried slowly at low temperatures to preserve flavor and texture.</p>
+                    <h3>Perfect Timing</h3>
+                    <p>Start checking doneness 2 minutes before the suggested cooking time for perfect al dente.</p>
                 </div>
-                <div class="technique-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="technique-icon">
-                        <i class="fas fa-hands"></i>
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tip-icon">
+                        <i class="fas fa-wine-glass-alt"></i>
                     </div>
-                    <h3>Traditional Methods</h3>
-                    <p>Our pasta is crafted using time-honored techniques passed down through generations.</p>
+                    <h3>Save the Water</h3>
+                    <p>Reserve a cup of pasta water before draining. It's liquid gold for creating silky sauces.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <section class="newsletter">
         <div class="container">
-            <h3>L'Arte dei Maccheroni</h3>
-            <p>Preserving the tradition of authentic Italian pasta making</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-pinterest"></i></a>
+            <div class="section-title" data-aos="fade-up">
+                <h2>Join Our Pasta Club</h2>
+                <p class="subtitle">Get weekly recipes and cooking tips</p>
             </div>
+            <form class="newsletter-form" data-aos="fade-up">
+                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
         </div>
-    </footer>
+    </section>
+
+    <!-- Previous footer remains the same -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({
             duration: 800,
             once: true
+        });
+
+        // Sticky navigation
+        const nav = document.querySelector('.sticky-nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                nav.classList.add('visible');
+                if (currentScroll > lastScroll) {
+                    nav.style.transform = 'translateY(-100%)';
+                } else {
+                    nav.style.transform = 'translateY(0)';
+                }
+            } else {
+                nav.classList.remove('visible');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Recipe tabs
+        const tabs = document.querySelectorAll('.recipe-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
         });
     </script>
 </body>
