@@ -3,51 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Maccheroni</title>
+    <title>L'Arte dei Maccheroni | Traditional Italian Pasta</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+        /* Previous styles remain */
+        
+        /* New interactive features styles */
+        .recipe-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(222, 184, 135, 0.1);
+            border-radius: 10px;
         }
-        h1 {
-            color: #d35400;
-            text-align: center;
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
         }
-        .pasta-types {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
         }
-        h2 {
-            color: #e67e22;
+
+        .filter-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--secondary-color);
+            border-radius: 5px;
+            font-size: 0.9rem;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
         }
-        li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+
+        .difficulty-easy {
+            background-color: #98FB98;
+            color: #006400;
         }
-        li:last-child {
-            border-bottom: none;
+
+        .difficulty-medium {
+            background-color: #FFD700;
+            color: #8B6914;
+        }
+
+        .difficulty-hard {
+            background-color: #FFB6C1;
+            color: #8B0000;
+        }
+
+        .recipe-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem;
+            border: none;
+            background: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .action-btn i {
+            font-size: 1.2rem;
+        }
+
+        .recipe-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .recipe-ingredients {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-radius: 10px;
+        }
+
+        .recipe-steps {
+            counter-reset: step;
+        }
+
+        .recipe-step {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .recipe-step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            .recipe-modal {
+                position: static;
+                display: block;
+                background: none;
+            }
+
+            .modal-content {
+                max-width: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .close-modal,
+            .recipe-actions {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Maccheroni</h1>
-    <p>This is a simple page about pasta.</p>
-    <div class="pasta-types">
-        <h2>Popular Types of Maccheroni</h2>
-        <ul>
-            <li>Elbow Macaroni</li>
-            <li>Ziti</li>
-            <li>Penne</li>
-        </ul>
+    <!-- Previous content remains -->
+
+    <!-- Enhanced recipe section -->
+    <section id="recipes" class="section recipe-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Signature Recipes</h2>
+                <p class="subtitle">Traditional Italian classics</p>
+            </div>
+            
+            <div class="recipe-filters" data-aos="fade-up">
+                <div class="filter-group">
+                    <label for="search">Search Recipes</label>
+                    <input type="text" id="search" class="filter-input" placeholder="Search by name or ingredient...">
+                </div>
+                <div class="filter-group">
+                    <label for="time">Cooking Time</label>
+                    <select id="time" class="filter-input">
+                        <option value="">All</option>
+                        <option value="quick">Quick (< 30 mins)</option>
+                        <option value="medium">Medium (30-60 mins)</option>
+                        <option value="long">Long (> 60 mins)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="difficulty">Difficulty</label>
+                    <select id="difficulty" class="filter-input">
+                        <option value="">All</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="recipe-content" data-aos="fade-up">
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="/api/placeholder/300/200" alt="Classic Carbonara">
+                    </div>
+                    <div class="recipe-details">
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-clock"></i> 30 mins</span>
+                            <span><i class="fas fa-user"></i> 4 servings</span>
+                            <span class="difficulty-badge difficulty-medium">Medium</span>
+                        </div>
+                        <h3>Classic Carbonara</h3>
+                        <p>Traditional Roman recipe with eggs, pecorino cheese, guanciale, and black pepper.</p>
+                        <div class="recipe-actions">
+                            <button class="action-btn" title="View Recipe" onclick="showRecipe('carbonara')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn" title="Print Recipe">
+                                <i class="fas fa-print"></i>
+                            </button>
+                            <button class="action-btn" title="Share Recipe">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="action-btn" title="Save Recipe">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More recipe cards with similar structure -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipe Modal -->
+    <div class="recipe-modal" id="recipeModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeRecipe()">&times;</button>
+            <h2>Classic Carbonara</h2>
+            <div class="recipe-meta">
+                <span><i class="fas fa-clock"></i> 30 mins</span>
+                <span><i class="fas fa-user"></i> 4 servings</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+            </div>
+            <div class="recipe-ingredients">
+                <h3>Ingredients</h3>
+                <ul>
+                    <li>400g spaghetti</li>
+                    <li>200g guanciale</li>
+                    <li>4 large eggs</li>
+                    <li>100g pecorino romano</li>
+                    <li>Black pepper</li>
+                    <li>Salt</li>
+                </ul>
+            </div>
+            <div class="recipe-steps">
+                <h3>Instructions</h3>
+                <div class="recipe-step">
+                    <p>Bring a large pot of salted water to boil. Cook spaghetti according to package instructions.</p>
+                </div>
+                <div class="recipe-step">
+                    <p>While pasta cooks, cut guanciale into small cubes and cook in a pan until crispy.</p>
+                </div>
+                <div class="recipe-step">
+                    <p>In a bowl, whisk eggs with grated pecorino and plenty of black pepper.</p>
+                </div>
+                <!-- More steps -->
+            </div>
+        </div>
     </div>
+
+    <!-- Previous scripts remain -->
+    
+    <script>
+        // Previous script content remains
+        
+        // Recipe filtering
+        const searchInput = document.getElementById('search');
+        const timeFilter = document.getElementById('time');
+        const difficultyFilter = document.getElementById('difficulty');
+        
+        function filterRecipes() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedTime = timeFilter.value;
+            const selectedDifficulty = difficultyFilter.value;
+            
+            // Implementation of filtering logic
+            console.log('Filtering recipes:', { searchTerm, selectedTime, selectedDifficulty });
+        }
+        
+        searchInput.addEventListener('input', _.debounce(filterRecipes, 300));
+        timeFilter.addEventListener('change', filterRecipes);
+        difficultyFilter.addEventListener('change', filterRecipes);
+        
+        // Recipe modal
+        function showRecipe(id) {
+            const modal = document.getElementById('recipeModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeRecipe() {
+            const modal = document.getElementById('recipeModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Print recipe
+        function printRecipe() {
+            window.print();
+        }
+        
+        // Share recipe
+        function shareRecipe(title) {
+            if (navigator.share) {
+                navigator.share({
+                    title: `${title} Recipe`,
+                    text: `Check out this amazing ${title} recipe!`,
+                    url: window.location.href
+                });
+            }
+        }
+        
+        // Save recipe (to be implemented with backend)
+        function toggleSave(btn) {
+            btn.querySelector('i').classList.toggle('far');
+            btn.querySelector('i').classList.toggle('fas');
+        }
+    </script>
 </body>
 </html>
